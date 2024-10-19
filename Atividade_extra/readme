@@ -1,0 +1,18 @@
+# P.O.O-IFPI
+
+1) A classe é um modelo que define as características e comportamentos de um certo objeto, enquanto o objeto é uma entidade ou uma instancia criada a partir da classe, mas seus valores podem ser diferentes e específicos. Um exemplo de como elas se relacionam seria a classe Animal e os objetos como cachorro, gato, pato e etc, as informações desses objetos são diferentes, mas utilizamos os atributos e métodos da classe Animal.
+Exemplo do mundo real: 
+	Classe Celular
+•	Atributos: marca, modelo, cor, capacidade de armazenamento
+•	Métodos: ligar, tirar foro, desligar, ligação
+
+Instancias: 
+•	Iphone: marca -> apple, cor -> preta, armz -> 128G
+•	Samsung galaxy: marca -> Samsung, cor -> branco, armz -> 250G
+
+2) Atributos são características e propriedades de um objeto ou classe, elas descrevem os dados que um objeto pode possui. Os métodos são as ações que esse objeto pode realizar.
+Exemplo: Classe computador
+Atributos: processador, armazenamento, memoriaram
+Métodos: ligar(), desligar(), atualizar(), reiniciar()
+
+3) 
