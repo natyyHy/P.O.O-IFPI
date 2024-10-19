@@ -16,3 +16,44 @@ Atributos: processador, armazenamento, memoriaram
 Métodos: ligar(), desligar(), atualizar(), reiniciar()
 
 3) ![tabela](https://github.com/user-attachments/assets/24547491-7312-4e78-b182-b76544e89ca4)
+
+4)
+a.Sim, a associação entre elas duas facilita o acesso as informações como também a integridade dos dados
+b.Sim, uma pessoa pode ter varias contas. A melhor estrutura para representar o conjunto de contas seria um Array. Dentro da classe pessoa deve ter um array de conta para armazenar as várias contas
+
+5) 1-Curso
+2-Biblioteca
+3-Matricula
+4-Horários
+5-Avaliação
+
+6) Futebol
+Atributos: duração, local, placar, juiz, time1, time2, quantidade de jogadores, tempo (1 e 2)
+Métodos: iniciar partida, intervalo, adicionar gol, substituir jogador, aplica cartão (time, jogador, tipo cartão)
+
+Time
+Atributos: nome, jogadores, técnico, gols
+Métodos: marcar gols, remover jogador, adicionar jogador, substituir jogador (jogad_sair, jogad_entrar), listar jogadores
+
+Jogador
+Atributos: nome, posição, número, quantidade de gols, time atual, cartao amarelo, cartao vermelho
+Métodos: marcar gols, substituir, receber cartão V, receber cartão A
+Juiz
+Atributos: nome
+Métodos: iniciar jogo, apitar, aplicar cartão, encerrar o jogo
+
+Bola
+Atributos: cor, marca, peso
+Métodos: iniciar uso, parar uso
+
+Placar
+Atributos: gols do time 1, gols do time 2, tempo do jogo
+Métodos: atualizar placa, mostrar placar
+
+7) 
+
+8)
+
+9)
+
+10) 
