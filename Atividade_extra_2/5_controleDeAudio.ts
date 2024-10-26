@@ -22,7 +22,3 @@ class controleDeAudio{
         return this.volume;
     }
 }
-
-const audiocarro = new controleDeAudio(4)
-
-console.log(controleDeAudio)
