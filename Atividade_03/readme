@@ -1,1 +1,115 @@
+/*
+Exercicio 03
 
+1. function par_or_impar(numero: number){
+    return (numero % 2 === 0) ? true : false
+}
+
+    console.log(par_or_impar(3))
+
+2. function imprimir_saudacao(nome : string , pronome: string = 'Sr'){
+    return console.log(`${pronome}. ${nome}`)
+}
+
+imprimir_saudacao('Sávia','Sra')
+
+
+3. function array_in_string(array: number[]): string {
+    let formato_string = ''
+
+    array.forEach((numero, index) => {
+        if(index === array.length - 1){
+            formato_string += numero + ''
+        }else{
+            formato_string += numero + '-'
+        }
+    });
+    return formato_string
+}
+
+console.log(array_in_string([1,2,3,4,5]))
+
+
+4. a. como a funçao recebe dois valores do tipo numero, a funçao retonar o resultado da operaçao normalmente
+   b. como o segundo parametro da funçao é do tipo opcional any, a funçao permite o argumento '2' e a operaçao concatenar, resultando em uma string '12',mesmo a funçao tendo o tipo de retorno number
+   c. a funçao nao recebe o segundo parametro,o que é considerado undefined,a operaçao é exercutada mas 1 + underfined resulta em NaN
+
+
+5. function exibir(...rest_parameter: string[]){
+    rest_parameter.forEach(element => {
+        console.log(element)
+    });
+}
+exibir('a','b')
+exibir('a','b','c')
+exibir('a','b','c','d')
+
+
+6.
+const ola = (): void => console.log('Olá')
+ola()
+
+
+7. 
+const filter_par = (array:number[]) => {
+
+   let pares: number[] = []
+   array.forEach(element => {
+   if(element % 2 === 0){
+    pares.push(element)
+   }
+});
+return pares
+}
+
+console.log(filter_par([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
+
+//FILTER
+
+const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+const filter_par_v2 = array.filter((numero) => numero % 2 === 0)
+console.log(filter_par_v2)
+
+
+
+8.
+//FUNCAO MAPEAR
+
+const numeros = [1,2,3,4]
+
+const mapear = (Array:number[], transformar:Function) => {
+    let novo: number[] = []
+    Array.forEach(element => {
+        novo.push(transformar(element))
+    });
+    return novo
+}
+
+const dobrar = (item:number):number => item * 2
+
+const numeros_dobrados = mapear(numeros,dobrar)
+
+console.log(numeros_dobrados)
+
+//FUNÇAO REDUCE
+
+const reduce = (Array1:number[], acumulador:number,transformar:Function): number => {
+    Array1.forEach(element => {
+        acumulador = transformar(acumulador,element)
+    });
+    return acumulador
+}
+
+const somar = (x:number,y:number) => x + y
+const somatorio = reduce(numeros_dobrados,0,somar)
+console.log(somatorio)
+
+//VERSAO DIRETA
+
+const numeros1 = [4,3,2,1]
+const dobrados:number[] = numeros1.map((numero) => numero * 2)
+console.log(dobrados)
+
+const somatorio1 = dobrados.reduce((numero,acumulador) => acumulador + numero,0)
+console.log(somatorio1)
+*/
