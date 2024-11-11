@@ -1,0 +1,38 @@
+/*
+
+>> lembrete para instalar e transpilar(tsc) o TyperScript <<
+
+--> npm init -y
+--> npm -D typescript (por desenvolvimento) ou npm -g typescript (por globalmente)
+--> npx tsc --init
+
+--> tsconfig:
+    rootDir: "./folder"
+    sourceMap: true
+    outDir: ./dist
+
+>> exercutar e transpilar
+
+terminal:
+
+--> buildar projeto
+    npx tsc
+    (criara uma pasta dist em js)
+
+--> sucrase node
+    npm i -D sucrase
+    npx sucrase-node pasta/arquivo.ts
+
+--> para exercuçao mais rapida
+    install extension code runner
+    criar .vscode
+    criar settings.json:
+        {
+        "code-runner.executorMap": {
+            "typescript": "npx sucrase-node",
+            }
+        }
+
+
+
+*/
