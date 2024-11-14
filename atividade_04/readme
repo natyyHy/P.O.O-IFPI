@@ -1,1 +1,76 @@
 
+/*
+>>> Exercicio <<<
+
+1.
+(F) Objetos são modelos para classes; 
+(F) Atributos de uma classe devem ser obrigatoriamente inicializados para que as 
+classes compilem; 
+(V) Uma variável declarada dentro de um método deve ser inicializada para que a 
+classe seja compilável; 
+(F) Uma variável que seja uma classe declarada em um método é automaticamente 
+inicializada com undefined; 
+(V)  Construtores  são  rotinas  especiais  que  servem  para  inicializar  e  configurar  os 
+objetos no momento da instanciação; 
+(V) Construtores não possuem tipo de retorno e podem ou não ter parâmetros; 
+(V)  Uma classe pode ter várias instâncias.
+
+2. 
+Sim,pois a variável quantReservas não foi inicializada,em linguagem com tipagem estrita
+ao declarar o atributo de uma classe ele precisa ser inicializado antes do uso.
+ A variavel quantReservas nao foi inicializada ,logo seu valor ser undefined,e ao tentar
+ incrementar levara erro. 
+
+3. 
+class Hotel {
+    quantReservas : number;
+    
+    constructor(quantReservas:number) {
+        //// Inicializando com o valor recebido
+        this.quantReservas = quantReservas;
+    }
+    adicionarReserva(): void {
+        this.quantReservas++;
+    }
+}
+
+
+let hotel : Hotel = new Hotel(2); 
+console.log(hotel.quantReservas);
+
+4. 
+O erro ocorre pois o construtor da classe exige um parametro ao instanciar um objeto. 
+Na linha let r : Radio = new Radio() o construtor é chamado sem parametros, o que acarreta erro na compilaçao
+pois volume nao tem um valor padrao. Uma soluçao seria definir um valor padrão no construtor como:
+constructor(volume : number = 0)
+Ou tornar o parametro como opcional usando ?,caso volume nao for fornecido,volume sera 0: 
+constructor(volume?: number) { 
+        this.volume = volume ?? 0; 
+    }
+
+
+5. 
+a. o resultado dos dois prints imprimir 90. C1,c2 e c3 referenciam o mesmo objeto,logo qualquer
+    alteraçao entre eles será refletida em todos. 
+
+b. o antigo objeto c1 passou a nao ter referencia depois de c1 = c2, logo ele ficou inacessivel e
+como o typescript e javascript possui coleta de lixo ele sera removido da memoria pelo garbage collector. 
+
+
+6. no arquivo: quest6.ts
+
+7. no arquivo: quest7.ts
+
+8. no arquivo: quest8.ts
+
+9. no arquivo: quest9.ts
+
+10. no arquivo: quest10.ts
+
+
+11. Ambas as abordagens tem seu lugar e dependem das necessidades do sistema
+    a questao 9 é mais correta para sistemas que requerem controle estrito e verificações rigorosas e a
+    questao 10 é ideal para sistemas em que ações invalidas podem ser ignoradas sem impacto negativo.
+
+
+*/
