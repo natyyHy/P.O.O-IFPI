@@ -1,1 +1,13 @@
+/*
+6.
+    a. Sim, o banco cadastra é responsavel por conta dos metodos de cadastrar os clientes e contas,
+    quanto ainda aplicar as regras de negocio como as validaçoes e duplicaçoes
 
+    b. Sim, realmente é mais adequado dividir a funçoes entre Banco e as classes CadastroDeClientes e
+    CadastroDeContas. O banco deveria ser apenas focado em gerenciar as transaçoes,consultas e etc enquanto
+    as classes teriam as funçoes de validaçao.
+
+    c. o metedo associar provalvemente estaria na classe banco, já que esse metodo envolve duas entidades e
+    Banco é onde o ponto central onde essas duas entidades se encontram.
+    
+*/
