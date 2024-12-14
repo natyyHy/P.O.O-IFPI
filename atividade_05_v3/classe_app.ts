@@ -60,7 +60,7 @@ class App {
             print(`id - ${conta.id}`)
             print(`numero - ${conta.numero}`)
             print(`saldo - ${conta.saldo}$`)
-            let resposta : string | number = (conta.cliente === null) ? 'nenhum titular' : conta.cliente.nome
+            let resposta : string = (conta.cliente === null) ? 'nenhum titular' : conta.cliente.nome
             print(`cliente - ${resposta}`)
     }
 
