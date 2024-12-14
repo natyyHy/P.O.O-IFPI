@@ -1,1 +1,14 @@
+/*
 
+1) feito
+
+2) apos excluir um cliente, é valido exercutar uma funçao que dessassocie o cliente das contas na qual possuia, tornando essas contas sem titular.
+
+3) apos excluir uma conta, é valido exercutar uma funçao que dessassocie aquela conta excluida com o cliente titular, logo o cliente passara nao ter aquela conta 
+excluida associada.
+
+4) feito
+
+5) feito
+
+*/
