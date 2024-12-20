@@ -13,8 +13,8 @@ function executarTesteBanco() {
     banco.inserir_conta(conta2);
 
     //acesso  a  atributos privados
-    console.log("Contas banco:", banco.lerContas); // Deve exibir 1000
-    console.log("Clientes do banco:", banco.lerClientes); // Deve exibir 100
+    console.log("Contas banco:", banco.lerContas);
+    console.log("Clientes do banco:", banco.lerClientes);
 }
 
 function executarTesteConta() {
