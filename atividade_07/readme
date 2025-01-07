@@ -1,1 +1,8 @@
-![Descrição](https://raw.githubusercontent.com/natyyHy/P.O.O-IFPI/main/atividade_07/img/captura_tela_20250106.png)
+1. 
+
+2. 
+
+3. 
+  c) Foi  necessária  alguma  modificação  em  Calculadora  para  o  acesso  aos atributos?
+    Sim, foi necessario modificar o tipo de acesso dos atributos da Calculadora de privados para protected,pois as subclasses não conseguem
+    ter acesso aos atributos private, protected é util quando voce quer que os membros da classe sejam acesseveis por outras por subclasses.
