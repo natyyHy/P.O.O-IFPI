@@ -1,6 +1,9 @@
 
 1. ✓
 
+<div align="center">
+    <img height=700 src="https://github.com/natyyHy/P.O.O-IFPI/blob/6a4fb0666ecb720ee1fdb7c32db4f8cbd0792fb4/atividade_07/img/code.png" alt="codico da questao 1">
+</div>
 
 2. ✓
 
