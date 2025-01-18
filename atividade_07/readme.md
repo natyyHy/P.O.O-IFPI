@@ -35,3 +35,7 @@ Não foi preciso fazer alteração em Banco, pois ela já trata as operações d
 chama o metodo sacar da Conta, sem a necessidade de saber qual e o tipo da conta.
 Em classe App foi preciso fazer alteração em incluir a opcao de criar conta tipo contaImposto e a função sacar, para que caso o usuario queira sacar em uma conta imposto.</h4>
 </div>
+<div>
+        <h4>questao 5)</h4><h4>implementado na pasta "questao5"</h4>
+
+</div>
