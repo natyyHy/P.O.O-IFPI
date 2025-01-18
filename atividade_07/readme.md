@@ -23,3 +23,15 @@
         <h4>questao 4)</h4><h4>implementado na pasta "questao4"</h4>
 
 </div>
+
+<div>
+        <h4>CONTINUAÇAO...
+
+b. Adicione a aplicação a possibilidade de ter o cadastro de ContaImposto
+feita em sala de aula. Foi necessário alterar alguma coisa na classe Banco
+ou apenas na classe App?</h4>
+
+Não foi preciso fazer alteração em Banco, pois ela já trata as operações de forma genérica para qualquer objeto que seja uma instância da classe Conta ou subclasse,conta imposto herda de conta e sobrescreve metodo sacar, quando metodo sacar é chamado pela instancia de ContaImposto, a funçao sobrescrita sera executada e classe Banco apenas
+chama o metodo sacar da Conta, sem a necessidade de saber qual e o tipo da conta.
+Em classe App foi preciso fazer alteração em incluir a opcao de criar conta tipo contaImposto e a função sacar, para que caso o usuario queira sacar em uma conta imposto.</h4>
+</div>
