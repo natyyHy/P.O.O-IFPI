@@ -1,8 +1,13 @@
-import {Banco} from "../questao4/classBanco"
-import {Conta} from "../questao4/classConta"
-import {Cliente} from "../questao4/classCliente"
-import {Poupanca} from "../questao4/classPoupanca"
+import {Banco} from "./classBanco"
+import {Conta} from "./classConta"
+import {Cliente} from "./classCliente"
+import {Poupanca} from "./classPoupanca"
 import {print,input} from "../utils"
+import { ContaImposto } from "./classContaImposto"
+import { existsSync } from "fs"
+import { read_file } from "./read_file"
+import { write_file } from "./write_file"
+import { ContaSalario } from "./claasContaSalario"
 
 export class App {
 
@@ -17,16 +22,19 @@ export class App {
 
     do {
       print(`\nBem vindo\nDigite uma opção:`);
+      print('------------------------------------------------------------------------------------------------------')
       print(`* Contas:\n`);
-      print(`1 - Inserir conta      2 - Consultar conta   3 - Sacar\n` +
-            `4 - Depositar     5 - Excluir conta     6 - Transferir\n` +
-            `7 – Totalizações   8 - Atualizar    9 - Efetuar ordem bancaria`);
-      print(`9.1 - Render Juros\n`)
+      print(`1 - Inserir conta      2 - Consultar conta   3 - Sacar\n`)
+      print(`4 - Depositar     5 - Excluir conta     6 - Transferir\n`)
+      print(`7 – Totalizações   8 - Atualizar    9 - Efetuar ordem bancaria\n`);
+      print(`9.1 - Render Juros   9.2 - Resetar limite de saque de Conta Salario\n`)
+      print(`9.3 - Visualizar Saques Efeutuados de Conta Salario\n`)
       print(`* Clientes:\n`);
-      print(`10 - Inserir cliente      11 - Consultar cliente por CPF   12 - Associar Conta a Cliente   13 - Listar Contas do Cliente\n`);
-      print(`14 - Total saldo cliente   15 - Mudar o titular da conta   16 - Excluir cliente\n`);
-      print(`17 - Atribuir titular a contas sem cliente\n`);
-      print(`0 - Sair\n`);
+      print(`10 - Inserir cliente      11 - Consultar cliente por CPF   12 - Associar Conta a Cliente\n`);
+      print(`13 - Listar Contas do Cliente   14 - Total saldo cliente   15 - Mudar o titular da conta\n`);
+      print(`16 - Excluir cliente     17 - Atribuir titular a contas sem cliente\n`);
+      print('------------------------------------------------------------------------------------------------------')
+      print(`1.0 - Upload Arquivo    2.0 - Salvar Arquivo    0 - Sair\n`);
 
       opcao = input("opcao:");
 
@@ -49,11 +57,61 @@ export class App {
         case '15': this.mudarTitularConta(); break;
         case '16': this.excluirCliente(); break;
         case '17': this.atribuirTitularContasSemCliente(); break;
+        case '1.0': this.uploadArquivo(); break;
+        case '2.0': this.salvar_arquivo(); break;
+        case '9.2' : this.resetarLimite(); break;
+        case '9.3' : this.exibirSaquesRestantes(); break;
         case '0': print("Programa encerrando..."); break;
         default: print("Opcao inválida"); break;
       }
 
         } while (opcao !== '0');
+    }
+
+    public exibirSaquesRestantes() : void {
+        print('\nexibir saques efetuados...')
+        let numero : string = input('digite o numero da conta salario: ');
+        let conta_consultada : Conta = this.banco.consultar(numero);
+        if(conta_consultada){
+            if(conta_consultada instanceof ContaSalario){
+                print(`\nConta ${numero}:`)
+                print(`Saques efetuados --> ${conta_consultada.lerSaques} saques`);
+                print(`Limite de saques --> ${conta_consultada.lerLimite}`);
+            }else{
+                print('conta nao e conta salario...')
+                return;
+            }
+        }else{
+            print('conta nao encontrada...')
+            return;
+        }
+    }
+
+    public resetarLimite() : void {
+        print('\nresetar limites de saques...');
+        let numero : string = input('digite o numero da conta: ');
+        let conta_procurada : Conta = this.banco.consultar(numero);
+        if(conta_procurada){
+            if(conta_procurada instanceof ContaSalario){
+                let novoLimite : number = Number(input('digite o novo limite de saques: '));
+                conta_procurada.escreverLimiteSaq = novoLimite;
+                print('novo limite registrado com sucesso...')
+                return;
+            }else{
+                print('conta nao é Conta Salario...')
+                return;
+            }
+        }else{
+            print('conta nao encontrada...')
+            return;
+        }
+    }
+
+    public salvar_arquivo() : void {
+        print("salvando contas no arquivo 'contas.txt'...");
+        let caminho_arquivo : string = "C:\\Users\\natie\\OneDrive\\Documentos\\ADS-IFPI\\Modulo_2\\P.O.O\\atividade_07_v2\\questao5\\contas.txt";
+        write_file(this.banco.lerContas,caminho_arquivo);
+        print('arquivo criado com sucesso...');
     }
 
     public exibir_conta(numero : string ) :void {
@@ -72,26 +130,30 @@ export class App {
 
     public inserirConta() : void {
         print("\n Cadastrar Conta");
-            print('1 - inserir conta normal   2 - inserir conta Poupanca')
+            print('1 - inserir Conta   2 - inserir Conta Poupanca   3 - inserir Conta Imposto   4 - inserir Conta Salario')
             let opcao : number = Number(input('digite a opcao: '));
             print('--- opcao selecionada ---');
             let numero : string = input("digite o numero da conta:");
+            let saldo_inicial : number = parseFloat(input('Saldo inicial da conta '+ numero + ":"));
             let id_disponivel : number  = this.banco.adicionar_id_conta();
             while(id_disponivel == -1){
                 id_disponivel = this.banco.adicionar_id_conta();
             }
-            let conta_com_id : Conta;
-        
-            if(opcao === 2){
+            let contaNova : Conta;
+            if(opcao === 3){
+                contaNova = new ContaImposto(numero,saldo_inicial,id_disponivel,null);
+            }else if(opcao === 2){
                 let taxa : number = Number(input(`digite a taxa de juros que deseja para conta poupanca ${numero}: `));
-                conta_com_id = new Poupanca(numero,0,id_disponivel,null,taxa);
+                contaNova = new Poupanca(numero,0,id_disponivel,null,taxa);
+            }else if(opcao === 4){
+                let limite : number = Number(input('digite o limite de saques da conta salario: '));
+                contaNova = new ContaSalario(numero,saldo_inicial,id_disponivel,null,limite);
             }else{
-                conta_com_id = new Conta(numero,0,id_disponivel,null)
+                contaNova = new Conta(numero,0,id_disponivel,null)
             }
         
-            let saldo_inicial : number = parseFloat(input('Saldo inicial da conta '+ numero + ":"));
-            conta_com_id.escreverSaldo = saldo_inicial;
-            this.banco.inserir_conta(conta_com_id);
+            contaNova.escreverSaldo = saldo_inicial;
+            this.banco.inserir_conta(contaNova);
             print(`conta cadastrada com sucesso!\n`);
     }
 
@@ -113,12 +175,12 @@ export class App {
             let conta_consultada : Conta = this.banco.consultar(numero);
             if(conta_consultada.lerCliente !== undefined ){
                 print(`\nNUMERO DA CONTA: ${conta_consultada.lerNumero}`)
-                print(`SALDO DA CONTA: $${conta_consultada.lerSaldo}`)
+                print(`SALDO DA CONTA: $${conta_consultada.lerSaldo.toFixed(2)}`)
                 print(`ID DA CONTA: ${conta_consultada.lerId}`)
                 print(`TITULAR(cliente): ${conta_consultada.lerCliente?.lerNome}\n`)
             }else {
                 print(`\nNUMERO DA CONTA: ${conta_consultada.lerNumero}`)
-                print(`SALDO DA CONTA: $${conta_consultada.lerSaldo}`)
+                print(`SALDO DA CONTA: $${conta_consultada.lerSaldo.toFixed(2)}`)
                 print(`ID DA CONTA: ${conta_consultada.lerId}`)
                 print(`TITULAR(cliente): nenhum cliente associado a conta\n`)
             }
@@ -126,10 +188,60 @@ export class App {
 
     public sacar(): void {
             print("\n Sacar na Conta");
+            print(`\n1 - sacar em Conta    2 - sacar em Conta Imposto   3 - sacar em Conta Salario`)
+            let opcao : number = Number(input('opcao: '));
+            if(opcao <= 0 && opcao > 3){
+                print('opcao invalida');
+                return;
+            }
             let numero : string = input("digite o numero da conta:");
             let valor_sacado : number = Number(input('digite o valor a ser sacado:'));
-        
-            this.banco.sacar(numero,valor_sacado);
+            let conta_procurada : Conta = this.banco.consultar(numero);
+
+            //achar conta
+            if(conta_procurada){
+                print('conta encontrada...');
+            }else{
+                print('conta nao encontrada...');
+                return;
+            }
+
+            //verificar saldo e verificar opcao de conta
+            if(opcao === 3){
+                if(conta_procurada instanceof ContaSalario){
+                    this.banco.sacar_contasalario(numero,valor_sacado);
+                    print('sacar em Conta Salario numero ' + numero + ' concluido...');
+                    return;
+                }
+            }else if(opcao === 2){
+                if(conta_procurada instanceof ContaImposto){
+                    //resposta = this.banco.sacar(numero,valor_sacado);
+                    this.banco.sacar(numero,valor_sacado);
+                    print('sacar em Conta Imposto numero ' + numero + ' concluido...');
+                    return;
+                }
+            }else if(opcao === 1){
+                    this.banco.sacar(numero,valor_sacado);
+                    print(`sacar em Conta ${numero} concluido...`);
+                    return;
+            }
+    }
+
+    public uploadArquivo(): void {
+        print('\n Carregar arquivo de contas')
+        //let caminho_arquivo : string = input('caminho para o diretorio do arquivo: ');
+        let caminho_arquivo : string = "C:\\Users\\natie\\OneDrive\\Documentos\\ADS-IFPI\\Modulo_2\\P.O.O\\atividade_07_v2\\questao5\\contas.txt";
+
+        if(existsSync(caminho_arquivo)){
+            print('caminho do arquivo encontrado...')
+        }else{
+            print('caminho do arquivo nao encontrado...');
+            return;
+        }
+
+        this.banco.escreverContas = read_file(caminho_arquivo);
+        print('arquivo carregado com sucesso...')
+        return;
     }
 
     public depositar() : void {
@@ -150,7 +262,7 @@ export class App {
 
     public excluirCliente() : void {
         print(`\n Excluir Cliente`);
-            for(let cliente of this.banco.lerClientes){
+            for(let cliente of this.banco.lerclientes){
                 print(`cliente ${cliente.lerNome} | cpf: ${cliente.lerCpf}`)
             }
             let cpf : string = input('digite o cpf do cliente que deseja excluir:')
@@ -329,7 +441,7 @@ export class App {
         }
         
         print("\nLista dos clientes")
-        for(let cliente of this.banco.lerClientes){
+        for(let cliente of this.banco.lerclientes){
             print(`Cliente ${cliente.lerNome} -> cpf: ${cliente.lerCpf}`)
         }
         

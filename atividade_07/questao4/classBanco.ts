@@ -1,23 +1,29 @@
-import {Cliente} from "../questao4/classCliente"
-import {Conta} from "../questao4/classConta"
-import {Poupanca} from "../questao4/classPoupanca"
-import {input} from "../utils"
+import {Cliente} from "./classCliente"
+import {Conta} from "./classConta"
+import {Poupanca} from "./classPoupanca"
+import { ContaImposto } from "./classContaImposto"
+import {input, print} from "../utils"
+import { ContaSalario } from "./claasContaSalario"
 
 export class Banco {
     private contas: Conta[];
-    private Clientes: Cliente[];
+    private clientes: Cliente[];
 
     constructor() {
         this.contas = [];
-        this.Clientes = [];
+        this.clientes = [];
     }
 
     get lerContas() : Conta[] {
         return this.contas;
     }
 
-    get lerClientes() : Cliente[] {
-        return this.Clientes;
+    get lerclientes() : Cliente[] {
+        return this.clientes;
+    }
+
+    set escreverContas(contasNovas: Conta[]){
+        this.contas = contasNovas;
     }
 
     public renderJuros(numeroPoupanca: string): void {
@@ -45,7 +51,7 @@ export class Banco {
     }
 
     public adicionar_cliente(cliente: Cliente): void{
-        this.Clientes.push(cliente);
+        this.clientes.push(cliente);
     }
 
     public adicionar_id_conta() : number {
@@ -64,7 +70,7 @@ export class Banco {
     public adicionar_id_cliente() : number {
 
         let id : number = Number(input("digite o id do cliente:"));
-        for(let conta of this.Clientes){
+        for(let conta of this.clientes){
             let idAtual : number = conta.lerId
             if(idAtual === id){
                 console.log('Id digitado ja existente, tente novamente...');
@@ -75,10 +81,10 @@ export class Banco {
     }
 
     public consultar_cliente_cpf(cpf : string | undefined) : Cliente | null{
-        for(let i = 0; i < this.Clientes.length ; i++){
-            const cpfClienteAtual : string = this.Clientes[i].lerCpf;
+        for(let i = 0; i < this.clientes.length ; i++){
+            const cpfClienteAtual : string = this.clientes[i].lerCpf;
             if(cpf === cpfClienteAtual){
-                return this.Clientes[i];
+                return this.clientes[i];
             }
         }
         return null;
@@ -118,11 +124,11 @@ export class Banco {
         }
         
         this.desassociarClienteConta(cpf);
-        for(let i = cliente_indice; i < this.Clientes.length - 1;i++){
-                this.Clientes[i] = this.Clientes[i + 1];
+        for(let i = cliente_indice; i < this.clientes.length - 1;i++){
+                this.clientes[i] = this.clientes[i + 1];
         }
 
-        this.Clientes.pop();
+        this.clientes.pop();
         
     }
 
@@ -195,13 +201,13 @@ export class Banco {
     }
 
     public inserir_cliente(Cliente: Cliente) : void {
-        for(let cliente of this.Clientes){
+        for(let cliente of this.clientes){
             if(Cliente.lerId === cliente.lerId || Cliente.lerCpf === cliente.lerCpf){
                 console.log("cliente ja esta cadastrado");
                 return;
             }
         }
-        this.Clientes.push(Cliente);
+        this.clientes.push(Cliente);
     }
 
     public inserir_conta(Conta: Conta) : void {
@@ -230,8 +236,8 @@ export class Banco {
 
     private consultar_indice_clientes(cpf: string): number{
         let cliente_encontrado : number = -1;
-        for(let i = 0; i < this.Clientes.length;i++){
-            if(this.Clientes[i].lerCpf === cpf){
+        for(let i = 0; i < this.clientes.length;i++){
+            if(this.clientes[i].lerCpf === cpf){
                 cliente_encontrado = i;
                 break;
             }
@@ -248,16 +254,33 @@ export class Banco {
         }
     }
 
-    public sacar(numero: string, valor: number):void  {
-        let conta_procurada : Conta = this.consultar(numero);
+    public sacar(numero: string, valor: number): void {
+        let contaProcurada: Conta = this.consultar(numero);
 
-        if(conta_procurada.lerSaldo < valor){
-            console.log("saldo insuficiente para saque")
-            return;
+        if (contaProcurada) {
+            if(contaProcurada instanceof ContaSalario){
+                contaProcurada.sacar(valor);
+            }else if(contaProcurada instanceof ContaImposto){
+                contaProcurada.sacar(valor);
+            }else{
+                contaProcurada.sacar(valor);
+            }
         }
+        return;
+    }
 
-        conta_procurada.sacar(valor);
-        console.log(`Valor $${valor} sacado na conta ${numero} com sucesso`);
+    public sacar_contasalario(numero: string, valor: number) : void {
+        let contaProcurada : Conta = this.consultar(numero)
+        if(contaProcurada instanceof ContaSalario){
+            let limite : number = contaProcurada.lerLimite;
+            let efetuados : number = contaProcurada.lerSaques
+            if(efetuados > limite){
+                contaProcurada.sacar(valor);
+            }else{
+                print(`conta salario atingiu limite de saques...`)
+                return;
+            }
+        }
     }
 
     public depositar(valor: number, numero : string) : void {
@@ -372,7 +395,7 @@ export class Banco {
 
     public imprimir_clientes_banco(banco : Banco) : void {
         console.log("\nLista dos clientes")
-            for(let cliente of banco.Clientes){
+            for(let cliente of banco.clientes){
                 console.log(`Cliente ${cliente.lerNome} -> cpf: ${cliente.lerCpf}`)
             }
     }

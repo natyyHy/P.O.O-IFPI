@@ -1,6 +1,6 @@
 
-import {Conta} from "../questao4/classConta"
-import {Cliente} from "../questao4/classCliente"
+import {Conta} from "./classConta"
+import {Cliente} from "./classCliente"
 
 export class Poupanca extends Conta {
 

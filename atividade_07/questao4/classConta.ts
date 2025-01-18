@@ -1,4 +1,4 @@
-import {Cliente} from "../questao4/classCliente"
+import {Cliente} from "./classCliente"
 
 export class Conta {
     private _numero: string;

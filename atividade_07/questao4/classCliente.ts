@@ -1,5 +1,5 @@
 
-import {Conta} from "../questao4/classConta"
+import {Conta} from "./classConta"
 
 export class Cliente {
     private _id : number ;
