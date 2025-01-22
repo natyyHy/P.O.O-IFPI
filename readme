@@ -9,7 +9,7 @@
 --> tsconfig:
     rootDir: "./folder"
     sourceMap: true
-    outDir: ./dist
+    outDir: "./dist"
 
 >> exercutar e transpilar
 
